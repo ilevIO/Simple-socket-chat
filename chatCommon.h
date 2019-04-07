@@ -1,6 +1,6 @@
 //
 //  chatCommon.h
-//  char Client
+//  chat Client
 //
 //  Created by Ilya Yelagov on 13/03/2019.
 //  Copyright © 2019 Ilya Yelagov. All rights reserved.
