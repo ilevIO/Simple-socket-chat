@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <pthread.h>
-#include "../../chatCommon.h"
+#include "../chatCommon.h"
 
 #define MAXCLIENTCOUNT 3 + 3
 
@@ -51,7 +51,7 @@ void sendToAll(TClientList *sender, char tmp_buffer[]) {
     TClientList *tmpC = clientList->next;
     printf("%s\n", tmp_buffer);
     while (tmpC != NULL) {
-        if (sender->sockNum != tmpC->sockNum) { // all clients except itself.
+        if (sender->sockNum != tmpC->sockNum) { // to all clients except for sender
             printf("Send to sockfd %d: \"%s\" \n", tmpC->sockNum, tmp_buffer);
             send(tmpC->sockNum, tmp_buffer, LENGTH_SEND, 0);
         }
@@ -88,7 +88,7 @@ void client_handler(TClientList *theClient) {
         if (leave_flag) {
             break;
         }
-        int receive = recv(theClient->sockNum, recv_buffer, LENGTH_MSG, 0); //waits until message
+        int receive = recv(theClient->sockNum, recv_buffer, LENGTH_MSG, 0); //waits until message received
         if (receive > 0) {
             if (strlen(recv_buffer) == 0) {
                 continue;
@@ -123,7 +123,7 @@ void client_handler(TClientList *theClient) {
 
 int main()
 {
-    signal(SIGINT, handleExit);    // Create socket
+    signal(SIGINT, handleExit); 
     server_sockfd = socket(AF_INET , SOCK_STREAM , 0);  //creates an endpoint for communication and returns a file descriptor that refers to that endpoint
     if (server_sockfd == -1) {
         error("Socket error");
