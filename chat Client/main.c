@@ -1,3 +1,11 @@
+//
+//  main.c
+//  chat Client
+//
+//  Created by Ilya Yelagov on 13/03/2019.
+//  Copyright © 2019 Ilya Yelagov. All rights reserved.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
