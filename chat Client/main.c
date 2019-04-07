@@ -67,9 +67,6 @@ void SendMessage() {
     while (1) {
         str_overwrite_stdout();
         fflush(stdin);
-        //scanf (" %MSG_LENs", message);
-        //fgets(message, LENGTH_MSG, stdin);
-        //while (fgets(message, LENGTH_MSG, stdin) != NULL)
         if (fgets(message, LENGTH_MSG, stdin) && strlen(message) > 0)
         {
             FixString(message, LENGTH_MSG);
@@ -94,14 +91,6 @@ int main()
 {
     signal(SIGINT, HandleTermination);
     //char *locale = setlocale(LC_ALL, )
-    // Create socket
-    
-//    sockfd = socket(AF_INET , SOCK_STREAM , 0); //idk why always begins with 3?
-//    if (sockfd == -1) {
-//        error("Socket error");
-//        //printf("Fail to create a socket.");
-//        //exit(EXIT_FAILURE);
-//    }
     // Socket information
     struct sockaddr_in serverInfo, clientInfo;
     int s_addrlen = sizeof(serverInfo);
@@ -114,17 +103,11 @@ int main()
     char *IP = malloc(sizeof(char));
     do
     {
-//        struct sockaddr_in tmpserverInfo, tmpclientInfo;
-//        memset(&tmpserverInfo, 0, s_addrlen);
-//        memset(&tmpclientInfo, 0, c_addrlen);
-//        tmpserverInfo.sin_family = PF_INET;
         serverInfo.sin_family = PF_INET;
         
-        int tmpsockfd = socket(AF_INET , SOCK_STREAM , 0); //idk why always begins with 3?
+        int tmpsockfd = socket(AF_INET , SOCK_STREAM , 0);
         if (tmpsockfd == -1) {
-            error("Socket error");
-            //printf("Fail to create a socket.");
-            //exit(EXIT_FAILURE);
+            perror("Socket error");
         }
         printf ("Enter server IP address: ");
         fflush(stdin);
@@ -140,17 +123,11 @@ int main()
             perror("Connection error");
             printf("Try another server IP or port\n");
             memset(&serverInfo, 0, s_addrlen);
-            //memset(&clientInfo, 0, c_addrlen);
             close(tmpsockfd);
-            //perror("Connection error");
-            //printf("Connection to Server error!\n");
-            //exit(EXIT_FAILURE);
         }
         else
         {
             sockfd = tmpsockfd;
-            //clientInfo = tmpclientInfo;
-            //serverInfo = tmpserverInfo;
             connectionSucc = 1;
             free (IP);
         }
@@ -164,13 +141,9 @@ int main()
         scanf(" %s", nickname);
         if (strlen(nickname) > 0)
         {
-        //if (fgets(nickname, LENGTH_NAME, stdin) != NULL) {
-            //if (!strcmp(nickname, ""))
             FixString(nickname, LENGTH_NAME);
-            //}
             if (strlen(nickname) < 2 || strlen(nickname) >= LENGTH_NAME-1) {
                 printf("\nEnter valid name. Try again\n");
-                //exit(EXIT_FAILURE);
             }
             else
             {
